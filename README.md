@@ -1,7 +1,5 @@
 # Rutgers CSO — Next.js site
 
-Modern East-Asian retro-print ("Paper Print") redesign of the CSO website,
-built with Next.js 15 + Framer Motion and exported as a fully static site.
 
 ## Run it
 
