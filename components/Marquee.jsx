@@ -1,7 +1,5 @@
 import { Star } from "./Deco";
 
-/* Ticker strip. The sequence renders twice so the -50% keyframe loops
-   seamlessly. `variant="blue"` runs the opposite direction on print blue. */
 const RED_ITEMS = [
   { cn: "中国学生会" },
   { text: "Rutgers CSO" },
@@ -21,7 +19,14 @@ function Seq({ items }) {
   return (
     <div className="marquee__seq" aria-hidden="true">
       {items.map((it, i) => (
-        <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: "2.4rem" }}>
+        <span
+          key={i}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "2.4rem",
+          }}
+        >
           <span className={it.cn ? "cn" : undefined}>{it.cn || it.text}</span>
           <Star />
         </span>

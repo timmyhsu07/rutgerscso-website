@@ -14,23 +14,48 @@ const BRUSH = Array.from("中国学生会");
 const EASE = [0.2, 0.7, 0.2, 1];
 
 const HIGHLIGHTS = [
-  { no: "01", cn: "活动", title: "Cultural Events", text: "Festivals, galas, and workshops all year long — come celebrate with us.", href: "/events", cta: "Explore Events" },
-  { no: "02", cn: "团队", title: "Our Team", text: "Meet the e-board behind the org and learn about our story and vision.", href: "/about", cta: "About Us" },
-  { no: "03", cn: "联系", title: "Stay Connected", text: "Follow us on Instagram and reach out — we'd love to hear from you.", href: "/contact", cta: "Contact Us" },
+  {
+    no: "01",
+    cn: "活动",
+    title: "Cultural Events",
+    text: "Festivals, galas, and workshops all year long — come celebrate with us.",
+    href: "/events",
+    cta: "Explore Events",
+  },
+  {
+    no: "02",
+    cn: "团队",
+    title: "Our Team",
+    text: "Meet the e-board behind the org and learn about our story and vision.",
+    href: "/about",
+    cta: "About Us",
+  },
+  {
+    no: "03",
+    cn: "联系",
+    title: "Stay Connected",
+    text: "Follow us on Instagram and reach out — we'd love to hear from you.",
+    href: "/contact",
+    cta: "Contact Us",
+  },
 ];
 
 export default function Home() {
-  // scroll-linked parallax: backdrop layers drift at different speeds
   const { scrollY } = useScroll();
   const yCollage = useTransform(scrollY, (v) => v * -0.06);
 
   return (
     <>
-      {/* Panel 1 — console-poster hero: blueprint split, HUD, chat window */}
       <header className="hero hero--poster wrap panel">
         <div className="hero__split" aria-hidden="true" />
         <motion.div
-          style={{ position: "absolute", inset: 0, zIndex: -1, pointerEvents: "none", y: yCollage }}
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: -1,
+            pointerEvents: "none",
+            y: yCollage,
+          }}
           aria-hidden="true"
         >
           <Collage />
@@ -51,11 +76,23 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <span><span className="hud__dot">●</span> 已连接 Connected — 中国学生会 network</span>
+          <span>
+            <span className="hud__dot">●</span> 已连接 Connected — 中国学生会
+            network
+          </span>
           <HudWeather />
         </motion.div>
 
-        <CityStamp {...stamps.home} className="deco-stamp" style={{ right: "6px", bottom: "6%", width: "clamp(140px, 14vw, 200px)", zIndex: 0 }} />
+        <CityStamp
+          {...stamps.home}
+          className="deco-stamp"
+          style={{
+            right: "6px",
+            bottom: "6%",
+            width: "clamp(140px, 14vw, 200px)",
+            zIndex: 0,
+          }}
+        />
 
         <div className="hero__body">
           <span className="hero__cloud" aria-hidden="true" />
@@ -76,7 +113,11 @@ export default function Home() {
                   style={{ display: "inline-block" }}
                   initial={{ opacity: 0, y: 28 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.15 + i * 0.09, ease: EASE }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.15 + i * 0.09,
+                    ease: EASE,
+                  }}
                 >
                   {ch}
                 </motion.span>
@@ -97,8 +138,9 @@ export default function Home() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.85 }}
             >
-              Rutgers University&apos;s home for Chinese culture, community, and connection.
-              Celebrating our heritage and welcoming everyone to the family.
+              Rutgers University&apos;s home for Chinese culture, community, and
+              connection. Celebrating our heritage and welcoming everyone to the
+              family.
             </motion.p>
 
             <div className="hero__stickers">
@@ -112,7 +154,12 @@ export default function Home() {
                   className={`sticker ${s.cls}`}
                   initial={{ opacity: 0, scale: 1.6 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ type: "spring", stiffness: 320, damping: 17, delay: s.d }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 320,
+                    damping: 17,
+                    delay: s.d,
+                  }}
                 >
                   {s.text}
                 </motion.span>
@@ -125,8 +172,12 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.05 }}
             >
-              <Link className="btn btn--primary" href="/events">See Upcoming Events</Link>
-              <Link className="btn btn--ghost" href="/about">Meet the Team</Link>
+              <Link className="btn btn--primary" href="/events">
+                See Upcoming Events
+              </Link>
+              <Link className="btn btn--ghost" href="/about">
+                Meet the Team
+              </Link>
             </motion.div>
           </div>
 
@@ -148,8 +199,12 @@ export default function Home() {
             >
               <div className="chat__bar">▶ Now entering 中国学生会</div>
               <div className="chat__body">
-                <p className="chat__msg"><span className="cn">嘿，你在吗？</span> Hey, are you there?</p>
-                <Link className="btn btn--primary chat__reply" href="/contact">Join us →</Link>
+                <p className="chat__msg">
+                  <span className="cn">嘿，你在吗？</span> Hey, are you there?
+                </p>
+                <Link className="btn btn--primary chat__reply" href="/contact">
+                  Join us →
+                </Link>
               </div>
             </motion.div>
             <motion.div
@@ -163,35 +218,59 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="scroll-cue"><span>Scroll</span><span className="scroll-cue__dot" /></div>
+        <div className="scroll-cue">
+          <span>Scroll</span>
+          <span className="scroll-cue__dot" />
+        </div>
       </header>
 
       <Marquee />
       <Marquee variant="blue" />
 
-      {/* Panel 2 — welcome */}
-      <section className="wrap panel panel--tight" style={{ paddingTop: "3rem" }}>
+      <section
+        className="wrap panel panel--tight"
+        style={{ paddingTop: "3rem" }}
+      >
         <Reveal>
           <Frame no="01">
             <SectionTitle cn="欢迎" en="Welcome to CSO" />
-            <div className="prose" style={{ maxWidth: "66ch", marginInline: "auto", textAlign: "center" }}>
+            <div
+              className="prose"
+              style={{
+                maxWidth: "66ch",
+                marginInline: "auto",
+                textAlign: "center",
+              }}
+            >
               <p>
-                The Chinese Student Organization is a student-run community at Rutgers
-                dedicated to celebrating Chinese culture and creating a home away from home.
-                From our signature Lunar New Year Gala to casual boba socials, we bring
-                students together through food, festivals, and friendship — no background
-                required, everyone is welcome.
+                The Chinese Student Organization is a student-run community at
+                Rutgers dedicated to celebrating Chinese culture and creating a
+                home away from home. From our signature Lunar New Year Gala to
+                casual boba socials, we bring students together through food,
+                festivals, and friendship — no background required, everyone is
+                welcome.
               </p>
             </div>
-            <div style={{ display: "flex", gap: ".8rem", justifyContent: "center", flexWrap: "wrap", marginTop: "1.4rem" }}>
-              <Link className="btn btn--blue" href="/events">Upcoming Events</Link>
-              <Link className="btn btn--ghost" href="/contact">Get Involved</Link>
+            <div
+              style={{
+                display: "flex",
+                gap: ".8rem",
+                justifyContent: "center",
+                flexWrap: "wrap",
+                marginTop: "1.4rem",
+              }}
+            >
+              <Link className="btn btn--blue" href="/events">
+                Upcoming Events
+              </Link>
+              <Link className="btn btn--ghost" href="/contact">
+                Get Involved
+              </Link>
             </div>
           </Frame>
         </Reveal>
       </section>
 
-      {/* bold rule + motto between the panels */}
       <div className="wrap divider-strip" aria-hidden="true">
         <span className="divider-strip__rule" />
         <Star />
@@ -200,8 +279,10 @@ export default function Home() {
         <span className="divider-strip__rule" />
       </div>
 
-      {/* Panel 3 — highlights as a segmented poster grid */}
-      <section className="wrap panel panel--tight" style={{ paddingBottom: "3.5rem" }}>
+      <section
+        className="wrap panel panel--tight"
+        style={{ paddingBottom: "3.5rem" }}
+      >
         <SectionTitle cn="精彩" en="Explore CSO" />
         <Reveal>
           <div className="poster-grid">
@@ -213,7 +294,9 @@ export default function Home() {
                 </div>
                 <h3 className="poster-cell__title">{c.title}</h3>
                 <p className="poster-cell__text">{c.text}</p>
-                <Link className="poster-cell__link" href={c.href}>{c.cta} →</Link>
+                <Link className="poster-cell__link" href={c.href}>
+                  {c.cta} →
+                </Link>
               </div>
             ))}
           </div>

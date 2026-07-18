@@ -1,8 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
 
-/* App Router template: re-mounts on every navigation, so each page enters
-   with a soft rise — a route transition without any wiring in the pages. */
 export default function Template({ children }) {
   return (
     <motion.div

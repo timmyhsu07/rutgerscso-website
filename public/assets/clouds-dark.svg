@@ -4,7 +4,7 @@
     <filter id="b1" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
     <filter id="b2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.4"/></filter>
   </defs>
-  <!-- far cloud layer: deep indigo -->
+
   <g fill="#39456a" opacity="0.55" filter="url(#b1)">
     <use href="#cd" transform="translate(30 70) scale(2.6)"/>
     <use href="#cd" transform="translate(820 30) scale(3.2)"/>
@@ -12,7 +12,7 @@
     <use href="#cd" transform="translate(120 470) scale(3.0)"/>
     <use href="#cd" transform="translate(560 520) scale(2.6)"/>
   </g>
-  <!-- near cloud layer: lighter indigo -->
+
   <g fill="#4c5885" opacity="0.85" filter="url(#b2)">
     <use href="#cd" transform="translate(-40 200) scale(2.2)"/>
     <use href="#cd" transform="translate(470 120) scale(2.6)"/>

@@ -2,7 +2,10 @@ import Reveal from "./Reveal";
 import { sponsorTiers } from "@/lib/data";
 
 export default function Sponsors() {
-  const total = sponsorTiers.reduce((n, t) => n + ((t.sponsors && t.sponsors.length) || 0), 0);
+  const total = sponsorTiers.reduce(
+    (n, t) => n + ((t.sponsors && t.sponsors.length) || 0),
+    0,
+  );
   if (!total) {
     return (
       <p className="empty-note">
@@ -27,18 +30,26 @@ export default function Sponsors() {
                 return (
                   <Reveal key={i} delay={(i % 5) * 0.06}>
                     {s.url ? (
-                      <a className="sponsor-card" href={s.url} target="_blank" rel="noopener" title={s.name}>
+                      <a
+                        className="sponsor-card"
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener"
+                        title={s.name}
+                      >
                         {inner}
                       </a>
                     ) : (
-                      <div className="sponsor-card" title={s.name}>{inner}</div>
+                      <div className="sponsor-card" title={s.name}>
+                        {inner}
+                      </div>
                     )}
                   </Reveal>
                 );
               })}
             </div>
           </div>
-        ) : null
+        ) : null,
       )}
     </>
   );
