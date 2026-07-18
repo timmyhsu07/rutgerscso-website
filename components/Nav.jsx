@@ -44,9 +44,16 @@ export default function Nav() {
         >
           ☰
         </button>
-        <div className={"nav__links" + (open ? " is-open" : "")} onClick={() => setOpen(false)}>
+        <div
+          className={"nav__links" + (open ? " is-open" : "")}
+          onClick={() => setOpen(false)}
+        >
           {LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className={isActive(l.href) ? "is-active" : ""}>
+            <Link
+              key={l.href}
+              href={l.href}
+              className={isActive(l.href) ? "is-active" : ""}
+            >
               {l.label}
             </Link>
           ))}

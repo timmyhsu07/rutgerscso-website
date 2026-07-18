@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14">
-  <!-- 回纹 band: nested 回 boxes linked by a mid rail -->
+
   <g fill="none" stroke="#f2ead4" stroke-width="1.8">
     <rect x="3" y="2" width="16" height="10"/>
     <rect x="7.5" y="5.2" width="7" height="3.6"/>

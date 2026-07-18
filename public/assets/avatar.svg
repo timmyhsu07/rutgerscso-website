@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 384">
-  <!-- Abstract member portrait: grid paper, maze wash, geometric figure -->
+
   <defs>
     <pattern id="agrid" width="34" height="34" patternUnits="userSpaceOnUse">
       <path d="M34 0H0v34" fill="none" stroke="#2e2a22" stroke-opacity=".1" stroke-width="1"/>
@@ -13,7 +13,7 @@
   <path d="M226 30h44a26 26 0 0 1 26 26v44a10 10 0 0 1-10 10h-44a26 26 0 0 1-26-26V40a10 10 0 0 1 10-10Z" fill="#92b4e6" stroke="#2e2a22" stroke-width="3"/>
   <circle cx="62" cy="70" r="34" fill="url(#adots)" stroke="#2e2a22" stroke-width="3"/>
   <circle cx="270" cy="300" r="26" fill="#c14038" stroke="#2e2a22" stroke-width="3"/>
-  <!-- figure -->
+
   <circle cx="160" cy="150" r="62" fill="#f9f3e2" stroke="#2e2a22" stroke-width="5"/>
   <path d="M62 340a98 98 0 0 1 196 0" fill="#c14038" stroke="#2e2a22" stroke-width="5"/>
   <rect x="10" y="10" width="300" height="364" fill="none" stroke="#2e2a22" stroke-width="4"/>

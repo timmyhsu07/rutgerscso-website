@@ -1,18 +1,20 @@
-/* Small print-shop decorations: a barcode and a four-point sparkle.
-   Bar widths are hardcoded (not random) so server and client render match. */
-
 const BARS = [3, 1, 2, 1, 3, 2, 1, 1, 2, 3, 1, 2, 2, 1, 3, 1, 1, 2, 1, 3, 2, 1];
 
 export function Barcode({ label }) {
   let x = 0;
   const rects = BARS.map((w, i) => {
-    const r = <rect key={i} x={x} y={0} width={w} height={16} fill="currentColor" />;
+    const r = (
+      <rect key={i} x={x} y={0} width={w} height={16} fill="currentColor" />
+    );
     x += w + 1.5;
     return r;
   });
   return (
     <span className="barcode" aria-hidden="true">
-      <svg viewBox={`0 0 ${x} ${label ? 24 : 16}`} preserveAspectRatio="xMidYMid meet">
+      <svg
+        viewBox={`0 0 ${x} ${label ? 24 : 16}`}
+        preserveAspectRatio="xMidYMid meet"
+      >
         {rects}
         {label && (
           <text
@@ -40,8 +42,6 @@ export function Star(props) {
   );
 }
 
-/* Built-in flat Chinese-city artwork, shown when a stamp has no `image`.
-   `accent` tints the sun so each stamp can differ. */
 function CityScene({ accent }) {
   return (
     <>
@@ -69,12 +69,15 @@ function CityScene({ accent }) {
   );
 }
 
-/* Landscape postage stamp. Each stamp is its own object: pass `image` (a PNG
-   under /public, e.g. "/assets/stamps/skyline.png") to fill the picture
-   window, plus a `denom`, `caption`, and `accent`. With no `image` it draws
-   the built-in city scene. The picture is cropped to the window, so any PNG
-   aspect ratio works. Perforation notches punch in the scoped paper colour. */
-export function CityStamp({ image, denom = "50", caption = "中国 · RU·CSO", accent = "#c14038", alt = "", className, style }) {
+export function CityStamp({
+  image,
+  denom = "50",
+  caption = "中国 · RU·CSO",
+  accent = "#c14038",
+  alt = "",
+  className,
+  style,
+}) {
   const holes = [];
   for (let x = 0; x <= 160; x += 12) {
     holes.push([x, 0], [x, 124]);
@@ -95,25 +98,63 @@ export function CityStamp({ image, denom = "50", caption = "中国 · RU·CSO", 
         {holes.map(([cx, cy], i) => (
           <circle key={i} cx={cx} cy={cy} r="4" fill="var(--paper)" />
         ))}
-        {/* picture window */}
+
         {image ? (
-          <image href={image} x="13" y="13" width="134" height="82" preserveAspectRatio="xMidYMid slice" />
+          <image
+            href={image}
+            x="13"
+            y="13"
+            width="134"
+            height="82"
+            preserveAspectRatio="xMidYMid slice"
+          />
         ) : (
           <CityScene accent={accent} />
         )}
-        {/* frame + bottom label strip */}
-        <line x1="13" y1="97" x2="147" y2="97" stroke="#2e2a22" strokeWidth="1.2" />
-        <rect x="9" y="9" width="142" height="106" fill="none" stroke="#2e2a22" strokeWidth="2.5" />
-        <text x="16" y="111" fontSize="12" fontWeight="700" fill="#2e2a22"
-          fontFamily="'Space Mono', ui-monospace, monospace">{denom}</text>
-        <text x="147" y="111" textAnchor="end" fontSize="7.5" letterSpacing="2" fill="#2e2a22"
-          fontFamily="'Space Mono', ui-monospace, monospace">{caption}</text>
+
+        <line
+          x1="13"
+          y1="97"
+          x2="147"
+          y2="97"
+          stroke="#2e2a22"
+          strokeWidth="1.2"
+        />
+        <rect
+          x="9"
+          y="9"
+          width="142"
+          height="106"
+          fill="none"
+          stroke="#2e2a22"
+          strokeWidth="2.5"
+        />
+        <text
+          x="16"
+          y="111"
+          fontSize="12"
+          fontWeight="700"
+          fill="#2e2a22"
+          fontFamily="'Space Mono', ui-monospace, monospace"
+        >
+          {denom}
+        </text>
+        <text
+          x="147"
+          y="111"
+          textAnchor="end"
+          fontSize="7.5"
+          letterSpacing="2"
+          fill="#2e2a22"
+          fontFamily="'Space Mono', ui-monospace, monospace"
+        >
+          {caption}
+        </text>
       </svg>
     </span>
   );
 }
 
-/* Chunky flat directional arrow, like a console UI glyph. */
 export function Arrow(props) {
   return (
     <svg viewBox="0 0 124 74" aria-hidden="true" {...props}>
@@ -122,8 +163,6 @@ export function Arrow(props) {
   );
 }
 
-/* Portrait branding stamp for the hero rail: red ink + lantern by default,
-   or pass `image` (a PNG under /public) to fill the picture window instead. */
 export function Stamp({ image, alt = "" }) {
   const holes = [];
   for (let x = 0; x <= 120; x += 12) {
@@ -133,14 +172,26 @@ export function Stamp({ image, alt = "" }) {
     holes.push([0, y], [120, y]);
   }
   return (
-    <svg className="postage" viewBox="0 0 120 150" role={alt ? "img" : undefined}
-      aria-label={alt || undefined} aria-hidden={alt ? undefined : true}>
+    <svg
+      className="postage"
+      viewBox="0 0 120 150"
+      role={alt ? "img" : undefined}
+      aria-label={alt || undefined}
+      aria-hidden={alt ? undefined : true}
+    >
       <rect width="120" height="150" fill="var(--red)" />
       {holes.map(([cx, cy], i) => (
         <circle key={i} cx={cx} cy={cy} r="4" fill="var(--paper)" />
       ))}
       {image ? (
-        <image href={image} x="10" y="10" width="100" height="112" preserveAspectRatio="xMidYMid slice" />
+        <image
+          href={image}
+          x="10"
+          y="10"
+          width="100"
+          height="112"
+          preserveAspectRatio="xMidYMid slice"
+        />
       ) : (
         <>
           <g fill="var(--on-red)">
@@ -154,9 +205,27 @@ export function Stamp({ image, alt = "" }) {
           </g>
         </>
       )}
-      <rect x="9" y="9" width="102" height="132" fill="none" stroke="var(--on-red)" strokeWidth="2" />
-      <text x="60" y="134" textAnchor="middle" fontSize="11" letterSpacing="2.5" fill="var(--on-red)"
-        fontFamily="'Space Mono', ui-monospace, monospace" fontWeight="700">RU · CSO</text>
+      <rect
+        x="9"
+        y="9"
+        width="102"
+        height="132"
+        fill="none"
+        stroke="var(--on-red)"
+        strokeWidth="2"
+      />
+      <text
+        x="60"
+        y="134"
+        textAnchor="middle"
+        fontSize="11"
+        letterSpacing="2.5"
+        fill="var(--on-red)"
+        fontFamily="'Space Mono', ui-monospace, monospace"
+        fontWeight="700"
+      >
+        RU · CSO
+      </text>
     </svg>
   );
 }

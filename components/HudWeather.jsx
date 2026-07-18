@@ -2,10 +2,6 @@
 import { useEffect, useState } from "react";
 import { Star } from "./Deco";
 
-/* Live date + current weather for New Brunswick, NJ (Rutgers) in the HUD.
-   Open-Meteo is free, keyless, and CORS-friendly. Renders a stable
-   placeholder on the server, then fills in after mount. */
-
 const NB = "latitude=40.4862&longitude=-74.4518";
 
 function label(code) {
@@ -27,12 +23,15 @@ export default function HudWeather() {
 
   useEffect(() => {
     setDate(
-      new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" })
+      new Date().toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      }),
     );
     const ctrl = new AbortController();
     fetch(
       `https://api.open-meteo.com/v1/forecast?${NB}&current_weather=true&temperature_unit=fahrenheit`,
-      { signal: ctrl.signal }
+      { signal: ctrl.signal },
     )
       .then((r) => r.json())
       .then((d) => {

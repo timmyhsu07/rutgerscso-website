@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <!-- Hot-pink seal block with 华 in cream -->
+
   <rect x="3" y="3" width="58" height="58" fill="#c14038"/>
   <rect x="3" y="3" width="58" height="58" fill="none" stroke="#2e2a22" stroke-width="4"/>
   <text x="32" y="45" text-anchor="middle" font-size="36" fill="#f9f2df"

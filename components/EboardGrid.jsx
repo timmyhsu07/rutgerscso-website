@@ -5,7 +5,6 @@ export default function EboardGrid() {
   if (!eboard.length) {
     return <p className="empty-note">Our e-board roster is coming soon.</p>;
   }
-  // preserve first-seen group order
   const order = [];
   const groups = {};
   eboard.forEach((m) => {
@@ -27,12 +26,18 @@ export default function EboardGrid() {
               <Reveal key={i} delay={(i % 4) * 0.07}>
                 <div className="member-card">
                   <div className="member-card__avatar">
-                    <img src={m.image || "/assets/avatar.svg"} alt={m.name} loading="lazy" />
+                    <img
+                      src={m.image || "/assets/avatar.svg"}
+                      alt={m.name}
+                      loading="lazy"
+                    />
                   </div>
                   <h3 className="member-card__name">{m.name}</h3>
                   <div className="member-card__role">
                     {m.role}
-                    {m.roleCn && <span className="member-card__role--cn"> {m.roleCn}</span>}
+                    {m.roleCn && (
+                      <span className="member-card__role--cn"> {m.roleCn}</span>
+                    )}
                   </div>
                   {m.major && <p className="member-card__major">{m.major}</p>}
                 </div>

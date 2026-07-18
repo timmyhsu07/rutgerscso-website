@@ -1,8 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
 
-/* Section heading: the Chinese "seal chip" stamps in (scale + rotate settle),
-   the title rises, and the rule draws across. */
 export default function SectionTitle({ cn, en, lede }) {
   return (
     <div className="sec-title">

@@ -1,7 +1,10 @@
-/* Poster sheet: hard 2px border, offset block shadow, and a mono catalog
-   strip across the top (like a print-spec label). `lotus` flips the sheet
-   to the front page's charcoal LOTUS ground (same in both themes). */
-export default function Frame({ children, featured = false, lotus = false, no, className = "" }) {
+export default function Frame({
+  children,
+  featured = false,
+  lotus = false,
+  no,
+  className = "",
+}) {
   const cls =
     "poster" +
     (featured ? " poster--featured" : "") +
