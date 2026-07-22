@@ -1,306 +1,160 @@
-"use client";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
-import Frame from "@/components/Frame";
+import BoardGrid from "@/components/BoardGrid";
+import ChapterTag from "@/components/ChapterTag";
+import ConnectionCard from "@/components/ConnectionCard";
+import Hero from "@/components/Hero";
+import PartnersNote from "@/components/PartnersNote";
+import ProgramList from "@/components/ProgramList";
 import Reveal from "@/components/Reveal";
-import SectionTitle from "@/components/SectionTitle";
-import Marquee from "@/components/Marquee";
-import Collage from "@/components/Collage";
-import HudWeather from "@/components/HudWeather";
-import { Arrow, CityStamp, Star, Stamp } from "@/components/Deco";
-import { stamps } from "@/lib/data";
+import ValueList from "@/components/ValueList";
+import VisualStory from "@/components/VisualStory";
+import { org } from "@/lib/data";
 
-const BRUSH = Array.from("中国学生会");
-const EASE = [0.2, 0.7, 0.2, 1];
-
-const HIGHLIGHTS = [
+/** Deeper pages, presented as the back half of the home page index. */
+const SITE_INDEX = [
   {
-    no: "01",
-    cn: "活动",
-    title: "Cultural Events",
-    text: "Festivals, galas, and workshops all year long — come celebrate with us.",
-    href: "/events",
-    cta: "Explore Events",
+    no: "04 / 历",
+    title: "Past events",
+    copy: "Every gala, night market, workshop, and weeknight social we have run, year by year.",
+    href: "/events/past",
+    linkLabel: "Open the archive",
   },
   {
-    no: "02",
-    cn: "团队",
-    title: "Our Team",
-    text: "Meet the e-board behind the org and learn about our story and vision.",
+    no: "05 / 会",
+    title: "The E-Board",
+    copy: "The student leaders who build the calendar, tell our story, and welcome new members.",
     href: "/about",
-    cta: "About Us",
+    linkLabel: "Meet the team",
   },
   {
-    no: "03",
-    cn: "联系",
-    title: "Stay Connected",
-    text: "Follow us on Instagram and reach out — we'd love to hear from you.",
+    no: "06 / 联",
+    title: "Say hello",
+    copy: "Questions, collaborations, event ideas, or a first gathering to show up to.",
     href: "/contact",
-    cta: "Contact Us",
+    linkLabel: "Contact us",
   },
 ];
 
 export default function Home() {
-  const { scrollY } = useScroll();
-  const yCollage = useTransform(scrollY, (v) => v * -0.06);
-
   return (
     <>
-      <header className="hero hero--poster wrap panel">
-        <div className="hero__split" aria-hidden="true" />
-        <motion.div
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: -1,
-            pointerEvents: "none",
-            y: yCollage,
-          }}
-          aria-hidden="true"
-        >
-          <Collage />
-        </motion.div>
-        <motion.div
-          className="hero__postal"
-          initial={{ opacity: 0, x: -14 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-        >
-          <Stamp image={stamps.rail.image} />
-          <span className="hero__mark">文化社区交流</span>
-        </motion.div>
+      <Hero />
 
-        <motion.div
-          className="hud"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <span>
-            <span className="hud__dot">●</span> 已连接 Connected — 中国学生会
-            network
-          </span>
-          <HudWeather />
-        </motion.div>
-
-        <CityStamp
-          {...stamps.home}
-          className="deco-stamp"
-          style={{
-            right: "6px",
-            bottom: "6%",
-            width: "clamp(140px, 14vw, 200px)",
-            zIndex: 0,
-          }}
-        />
-
-        <div className="hero__body">
-          <span className="hero__cloud" aria-hidden="true" />
-          <div className="hero__main">
-            <motion.p
-              className="quote"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-            >
-              <span className="cn">万物皆有其美</span>
-              Everything has its beauty — but not everyone sees it.
-            </motion.p>
-            <p className="hero__cn" aria-label="中国学生会">
-              {BRUSH.map((ch, i) => (
-                <motion.span
-                  key={i}
-                  style={{ display: "inline-block" }}
-                  initial={{ opacity: 0, y: 28 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: 0.15 + i * 0.09,
-                    ease: EASE,
-                  }}
-                >
-                  {ch}
-                </motion.span>
-              ))}
-            </p>
-
-            <motion.h1
-              className="hero__en"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-            >
-              Chinese Student Organization
-            </motion.h1>
-            <motion.p
-              className="hero__tagline"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.85 }}
-            >
-              Rutgers University&apos;s home for Chinese culture, community, and
-              connection. Celebrating our heritage and welcoming everyone to the
-              family.
-            </motion.p>
-
-            <div className="hero__stickers">
-              {[
-                { cls: "sticker--red", text: "全员欢迎 · All welcome", d: 1.0 },
-                { cls: "sticker--blue", text: "Est. Rutgers", d: 1.12 },
-                { cls: "sticker--gold", text: "Free admission", d: 1.24 },
-              ].map((s) => (
-                <motion.span
-                  key={s.text}
-                  className={`sticker ${s.cls}`}
-                  initial={{ opacity: 0, scale: 1.6 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 320,
-                    damping: 17,
-                    delay: s.d,
-                  }}
-                >
-                  {s.text}
-                </motion.span>
-              ))}
-            </div>
-
-            <motion.div
-              className="hero__cta"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.05 }}
-            >
-              <Link className="btn btn--primary" href="/events">
-                See Upcoming Events
-              </Link>
-              <Link className="btn btn--ghost" href="/about">
-                Meet the Team
-              </Link>
-            </motion.div>
-          </div>
-
-          <div className="hero__side">
-            <motion.div
-              className="hero__giant"
-              aria-hidden="true"
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.75 }}
-            >
-              华人之家
-            </motion.div>
-            <motion.div
-              className="chat"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
-            >
-              <div className="chat__bar">▶ Now entering 中国学生会</div>
-              <div className="chat__body">
-                <p className="chat__msg">
-                  <span className="cn">嘿，你在吗？</span> Hey, are you there?
-                </p>
-                <Link className="btn btn--primary chat__reply" href="/contact">
-                  Join us →
-                </Link>
-              </div>
-            </motion.div>
-            <motion.div
-              className="hero__arrow"
-              initial={{ opacity: 0, x: 26 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 1.2 }}
-            >
-              <Arrow />
-            </motion.div>
-          </div>
-        </div>
-
-        <div className="scroll-cue">
-          <span>Scroll</span>
-          <span className="scroll-cue__dot" />
-        </div>
-      </header>
-
-      <Marquee />
-      <Marquee variant="blue" />
-
-      <section
-        className="wrap panel panel--tight"
-        style={{ paddingTop: "3rem" }}
-      >
-        <Reveal>
-          <Frame no="01">
-            <SectionTitle cn="欢迎" en="Welcome to CSO" />
-            <div
-              className="prose"
-              style={{
-                maxWidth: "66ch",
-                marginInline: "auto",
-                textAlign: "center",
-              }}
-            >
+      <section className="grid-paper" id="about" aria-labelledby="about-title">
+        <div className="chapter">
+          <ChapterTag>01 / Who we are / 关于我们</ChapterTag>
+          <div className="about-layout">
+            <VisualStory />
+            <Reveal className="about-copy">
+              <p className="cn">一个校园，一个家。</p>
+              <h3 id="about-title">A home away from home.</h3>
               <p>
-                The Chinese Student Organization is a student-run community at
-                Rutgers dedicated to celebrating Chinese culture and creating a
-                home away from home. From our signature Lunar New Year Gala to
-                casual boba socials, we bring students together through food,
-                festivals, and friendship — no background required, everyone is
-                welcome.
+                CSO is a student-run community celebrating Chinese culture
+                across Rutgers. We make room for traditions, new ideas, shared
+                meals, and the friendships that turn a huge campus into
+                somewhere familiar.
               </p>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                gap: ".8rem",
-                justifyContent: "center",
-                flexWrap: "wrap",
-                marginTop: "1.4rem",
-              }}
-            >
-              <Link className="btn btn--blue" href="/events">
-                Upcoming Events
+              <p>
+                Whether you grew up with the culture, are reconnecting with it,
+                or are simply curious, there is a place for you here.
+              </p>
+              <Link className="text-link" href="/about">
+                Read our story
               </Link>
-              <Link className="btn btn--ghost" href="/contact">
-                Get Involved
-              </Link>
-            </div>
-          </Frame>
-        </Reveal>
+              <ValueList />
+            </Reveal>
+          </div>
+        </div>
       </section>
 
-      <div className="wrap divider-strip" aria-hidden="true">
-        <span className="divider-strip__rule" />
-        <Star />
-        <span className="cn">文化 · 社区 · 交流</span>
-        <Star />
-        <span className="divider-strip__rule" />
-      </div>
-
       <section
-        className="wrap panel panel--tight"
-        style={{ paddingBottom: "3.5rem" }}
+        className="events grid-paper"
+        id="events"
+        aria-labelledby="events-title"
       >
-        <SectionTitle cn="精彩" en="Explore CSO" />
-        <Reveal>
-          <div className="poster-grid">
-            {HIGHLIGHTS.map((c) => (
-              <div className="poster-cell" key={c.no}>
-                <div className="poster-cell__no">
-                  <span>No. {c.no}</span>
-                  <span className="cn">{c.cn}</span>
-                </div>
-                <h3 className="poster-cell__title">{c.title}</h3>
-                <p className="poster-cell__text">{c.text}</p>
-                <Link className="poster-cell__link" href={c.href}>
-                  {c.cta} →
-                </Link>
-              </div>
-            ))}
+        <div className="chapter">
+          <ChapterTag>02 / Gather with us / 活动</ChapterTag>
+          <Reveal className="events-head">
+            <h2 id="events-title">
+              Make
+              <br />
+              memories.
+            </h2>
+            <p>
+              Our calendar moves from signature celebrations to low-key
+              weeknight hangs. Follow <strong>{org.instagramHandle}</strong> for
+              live dates, rooms, and RSVP details.
+            </p>
+          </Reveal>
+
+          <ProgramList />
+
+          <PartnersNote
+            label="Full calendar"
+            href="/events"
+            cta="See all events"
+          >
+            Dates, rooms, and RSVP details for everything coming up this
+            semester.
+          </PartnersNote>
+        </div>
+      </section>
+
+      <section className="night" aria-labelledby="belong-title">
+        <div className="chapter night-intro">
+          <ConnectionCard />
+          <ChapterTag>03 / Find your people / 社区</ChapterTag>
+          <Reveal className="night-statement">
+            <p>
+              Belonging does not need a long introduction. It starts with
+              showing up, learning somebody’s name, and finding out you already
+              have more in common than you thought.
+            </p>
+            <h2 id="belong-title">
+              Meet. Make.
+              <br />
+              Belong.
+            </h2>
+          </Reveal>
+        </div>
+
+        <section
+          className="chapter board"
+          id="board"
+          aria-labelledby="board-title"
+        >
+          <div className="board-head">
+            <div>
+              <ChapterTag>04 / The people behind CSO / 执行委员会</ChapterTag>
+              <Reveal as="h2" id="board-title">
+                E-Board.
+              </Reveal>
+            </div>
+            <Reveal as="p">
+              Student leaders build the calendar, tell our story, welcome new
+              members, and make every gathering happen.
+            </Reveal>
           </div>
-        </Reveal>
+
+          <BoardGrid />
+        </section>
+
+        <section className="chapter" aria-labelledby="index-title">
+          <ChapterTag>05 / Keep going / 继续</ChapterTag>
+          <Reveal className="events-head">
+            <h2 id="index-title">
+              More to
+              <br />
+              explore.
+            </h2>
+            <p>
+              The rest of the site, in the order most people read it — what we
+              have already done, who runs it, and how to reach us.
+            </p>
+          </Reveal>
+
+          <ProgramList items={SITE_INDEX} />
+        </section>
       </section>
     </>
   );

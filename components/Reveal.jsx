@@ -1,25 +1,58 @@
 "use client";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
-const EASE = [0.2, 0.7, 0.2, 1];
-
+/**
+ * Adds `data-reveal` so site.css can fade the element up on first scroll into
+ * view. Falls back to visible immediately when motion is reduced or
+ * IntersectionObserver is unavailable.
+ */
 export default function Reveal({
+  as: Tag = "div",
+  className = "",
   children,
-  delay = 0,
-  y = 18,
-  className,
-  style,
+  ...rest
 }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node || visible) return;
+
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduced || !("IntersectionObserver" in window)) {
+      setVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -5% 0px" },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [visible]);
+
   return (
-    <motion.div
-      className={className}
-      style={style}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-      transition={{ duration: 0.6, ease: EASE, delay }}
+    <Tag
+      ref={ref}
+      data-reveal=""
+      className={[className, visible ? "is-visible" : ""]
+        .filter(Boolean)
+        .join(" ")}
+      {...rest}
     >
       {children}
-    </motion.div>
+    </Tag>
   );
 }
