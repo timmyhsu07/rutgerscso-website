@@ -1,66 +1,83 @@
-import Link from "next/link";
-import Frame from "@/components/Frame";
+import ChapterTag from "@/components/ChapterTag";
+import PageHead from "@/components/PageHead";
+import PartnersNote from "@/components/PartnersNote";
+import ProgramList from "@/components/ProgramList";
 import Reveal from "@/components/Reveal";
-import SectionTitle from "@/components/SectionTitle";
-import PageHero from "@/components/PageHero";
-import EventsGrid from "@/components/EventsGrid";
-import PastGrid from "@/components/PastGrid";
-import { CityStamp } from "@/components/Deco";
-import { org, stamps } from "@/lib/data";
+import UpcomingEvents from "@/components/UpcomingEvents";
+import { org, upcomingEvents } from "@/lib/data";
 
-export const metadata = { title: "Events · Rutgers CSO" };
+export const metadata = {
+  title: "Events",
+  description: `Upcoming gatherings, galas, workshops, and socials from the ${org.name} at ${org.school}.`,
+};
 
 export default function EventsPage() {
   return (
     <>
-      <PageHero cn="活动" en="Events">
-        From our signature Lunar New Year Gala to laid-back boba socials —
-        here&apos;s what&apos;s happening and what you missed. Follow{" "}
-        <a href={org.instagram} target="_blank" rel="noopener">
-          {org.instagramHandle}
-        </a>{" "}
-        for real-time updates.
-      </PageHero>
+      <PageHead
+        tag="01 / Gather with us / 活动"
+        cn="活动"
+        title="Events."
+        meta={[
+          {
+            label: "On the calendar",
+            value: `${upcomingEvents.length} events`,
+          },
+          { label: "Cost", value: "Free or member rate" },
+          { label: "Live updates", value: org.instagramHandle },
+        ]}
+      >
+        <p>
+          From the Lunar New Year Gala down to a Thursday boba run. Dates firm
+          up a few weeks out — Instagram always gets them first.
+        </p>
+      </PageHead>
 
-      <section className="section wrap" style={{ paddingTop: "1rem" }}>
-        <Reveal>
-          <Frame no="01">
-            <SectionTitle
-              cn="近期活动"
-              en="Upcoming Events"
-              lede="Mark your calendars and RSVP early — spots fill up fast!"
-            />
-            <EventsGrid />
-          </Frame>
-        </Reveal>
+      <section className="events grid-paper" aria-labelledby="upcoming-title">
+        <div className="chapter">
+          <ChapterTag>02 / What is next / 即将举行</ChapterTag>
+          <Reveal className="events-head">
+            <h2 id="upcoming-title">
+              Coming
+              <br />
+              up.
+            </h2>
+            <p>
+              Times and rooms are confirmed closer to each date. Nothing here
+              needs an invitation — turning up is the whole entry requirement.
+            </p>
+          </Reveal>
+
+          <UpcomingEvents />
+        </div>
       </section>
 
-      <section className="section wrap" style={{ paddingTop: 0 }}>
-        <Reveal>
-          <Frame lotus no="02">
-            <span
-              className="wash"
-              style={{ left: -44, top: "24%", width: 190, height: 110 }}
-              aria-hidden="true"
-            />
-            <span
-              className="wash"
-              style={{ right: "16%", bottom: -34, width: 230, height: 120 }}
-              aria-hidden="true"
-            />
-            <CityStamp
-              {...stamps.events}
-              className="deco-stamp"
-              style={{ right: -14, bottom: 18, width: 170 }}
-            />
-            <SectionTitle
-              cn="往期回顾"
-              en="Past Events"
-              lede="A look back at the memories we've made together."
-            />
-            <PastGrid />
-          </Frame>
-        </Reveal>
+      <section className="night" aria-labelledby="programs-title">
+        <div className="chapter">
+          <ChapterTag>03 / What we run / 常设活动</ChapterTag>
+          <Reveal className="events-head">
+            <h2 id="programs-title">
+              Every
+              <br />
+              year.
+            </h2>
+            <p>
+              Three programs anchor the calendar. Everything else grows around
+              them, usually because a member asked for it.
+            </p>
+          </Reveal>
+
+          <ProgramList />
+
+          <PartnersNote
+            label="The archive"
+            href="/events/past"
+            cta="Past events"
+          >
+            Looking for something we already ran? Every past gathering is
+            collected by year.
+          </PartnersNote>
+        </div>
       </section>
     </>
   );

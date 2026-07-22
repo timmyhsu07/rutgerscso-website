@@ -1,39 +1,39 @@
-import "./globals.css";
-import "./animations.css";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
-import ScrollProgress from "@/components/ScrollProgress";
+import "./site.css";
+import "./site-extensions.css";
+import PageProgress from "@/components/PageProgress";
+import SiteFooter from "@/components/SiteFooter";
+import SiteNav from "@/components/SiteNav";
+import { org } from "@/lib/data";
 
 export const metadata = {
-  title: "Rutgers Chinese Student Organization · 中国学生会",
+  title: {
+    default: `${org.school} ${org.name} · ${org.nameCn}`,
+    template: `%s · ${org.short}`,
+  },
   description:
     "The Chinese Student Organization at Rutgers University — celebrating Chinese culture, building community, and bridging cultures on campus.",
 };
 
-const themeScript = `(function(){try{var t=localStorage.getItem('cso-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`;
+/** Without JS the reveal animation never runs, so show everything up front. */
+const revealFallback = "[data-reveal]{opacity:1;transform:none}";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin=""
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Nunito:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
-          rel="stylesheet"
-        />
         <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+        <noscript>
+          <style dangerouslySetInnerHTML={{ __html: revealFallback }} />
+        </noscript>
       </head>
       <body>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <ScrollProgress />
-        <Nav />
-        <main>{children}</main>
-        <Footer />
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
+        <PageProgress />
+        <SiteNav />
+        <main id="main">{children}</main>
+        <SiteFooter />
       </body>
     </html>
   );
